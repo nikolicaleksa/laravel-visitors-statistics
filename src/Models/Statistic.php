@@ -40,7 +40,7 @@ class Statistic extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'value'
+        'name', 'value', 'type'
     ];
 
     /**
@@ -53,5 +53,15 @@ class Statistic extends Model
         $max = Statistic::select(['value'])->where('type', self::TYPES['max'])->first();
 
         return $max->value ?? 0;
+    }
+
+    /**
+     * Get the total number of visitors.
+     *
+     * @return int
+     */
+    public static function getTotalVisitors(): int
+    {
+        return Statistic::where('type', self::TYPES['all'])->sum('value');
     }
 }
