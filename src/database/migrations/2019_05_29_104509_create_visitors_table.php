@@ -13,7 +13,7 @@ class CreateVisitorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('visitors', function (Blueprint $table) {
+        Schema::create('visitorsstatistics_visitors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('ip', 46);
             $table->string('country', 64);
@@ -31,6 +31,6 @@ class CreateVisitorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('visitors');
+        Schema::dropIfExists('visitorsstatistics_visitors');
     }
 }

@@ -33,6 +33,12 @@ class Statistic extends Model
         'max' => 'max',
     ];
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'visitorsstatistics_statistics';
 
     /**
      * The attributes that are mass assignable.

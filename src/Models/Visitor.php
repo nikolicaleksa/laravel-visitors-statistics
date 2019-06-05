@@ -36,6 +36,13 @@ use Illuminate\Support\Facades\DB;
 class Visitor extends Model
 {
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'visitorsstatistics_visitors';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
