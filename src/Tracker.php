@@ -3,6 +3,7 @@
 namespace Aleksa\LaravelVisitorsStatistics;
 
 use Aleksa\LaravelVisitorsStatistics\Contracts\Tracker as TrackerContract;
+use Aleksa\LaravelVisitorsStatistics\Contracts\Visitor as VisitorContact;
 use Aleksa\LaravelVisitorsStatistics\Models\Statistic;
 use Aleksa\LaravelVisitorsStatistics\Models\Visitor as VisitorModel;
 use Carbon\Carbon;
@@ -30,12 +31,14 @@ class Tracker implements TrackerContract
      * Tracker constructor.
      *
      * @param Request $request
-     * @param Visitor $visitor
      */
-    public function __construct(Request $request, Visitor $visitor)
+    public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->visitor = $visitor;
+        $this->visitor = resolve(VisitorContact::class, [
+            'ipAddress' => $this->request->header('HTTP_CF_CONNECTING_IP') ?? $this->request->getClientIp(),
+            'userAgent' => $this->request->userAgent()
+        ]);
         $this->today = Carbon::today();
     }
 

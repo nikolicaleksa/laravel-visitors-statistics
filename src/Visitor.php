@@ -3,8 +3,8 @@
 namespace Aleksa\LaravelVisitorsStatistics;
 
 use Aleksa\LaravelVisitorsStatistics\Contracts\Visitor as VisitorContract;
+use Aleksa\LaravelVisitorsStatistics\Contracts\GeoIP as GeoIPContract;
 use DeviceDetector\DeviceDetector;
-use Illuminate\Http\Request;
 
 class Visitor implements VisitorContract
 {
@@ -12,11 +12,6 @@ class Visitor implements VisitorContract
      * @var string
      */
     protected $ipAddress;
-
-    /**
-     * @var Request
-     */
-    private $request;
 
     /**
      * @var GeoIP
@@ -31,20 +26,19 @@ class Visitor implements VisitorContract
     /**
      * Visitor constructor.
      *
-     * @param Request $request
+     * @param string $ipAddress
+     * @param string $userAgent
      * @param DeviceDetector $deviceDetector
      */
-    public function __construct(Request $request, DeviceDetector $deviceDetector)
+    public function __construct(string $ipAddress, string $userAgent, DeviceDetector $deviceDetector)
     {
-        $this->request = $request;
-
-        $this->ipAddress = $this->request->header('HTTP_CF_CONNECTING_IP') ?? $this->request->getClientIp();
-        $this->geoIP = resolve('Aleksa\LaravelVisitorsStatistics\GeoIP', [
+        $this->ipAddress = $ipAddress;
+        $this->geoIP = resolve(GeoIPContract::class, [
             'ipAddress' => $this->ipAddress
         ]);
 
         $this->deviceDetector = $deviceDetector;
-        $this->deviceDetector->setUserAgent($request->userAgent());
+        $this->deviceDetector->setUserAgent($userAgent);
         $this->deviceDetector->parse();
     }
 

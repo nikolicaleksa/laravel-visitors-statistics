@@ -5,6 +5,8 @@ namespace Aleksa\LaravelVisitorsStatistics\Providers;
 use Aleksa\LaravelVisitorsStatistics\Console\Commands\UpdateMaxMindDatabase;
 use Aleksa\LaravelVisitorsStatistics\GeoIP;
 use Aleksa\LaravelVisitorsStatistics\Http\Middleware\RecordVisits;
+use Aleksa\LaravelVisitorsStatistics\Visitor;
+use DeviceDetector\DeviceDetector;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -20,11 +22,10 @@ class VisitorStatisticsProvider extends ServiceProvider
             'Aleksa\LaravelVisitorsStatistics\Contracts\Tracker',
             'Aleksa\LaravelVisitorsStatistics\Tracker'
         );
-        $this->app->bind(
-            'Aleksa\LaravelVisitorsStatistics\Contracts\Visitor',
-            'Aleksa\LaravelVisitorsStatistics\Visitor'
-        );
-        $this->app->bind('Aleksa\LaravelVisitorsStatistics\GeoIP', function ($app, $parameters) {
+        $this->app->bind('Aleksa\LaravelVisitorsStatistics\Contracts\Visitor', function ($app, $parameters) {
+            return new Visitor($parameters['ipAddress'], $parameters['userAgent'], new DeviceDetector());
+        });
+        $this->app->bind('Aleksa\LaravelVisitorsStatistics\Contracts\GeoIP', function ($app, $parameters) {
             return new GeoIP($parameters['ipAddress']);
         });
     }
