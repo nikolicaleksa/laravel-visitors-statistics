@@ -36,10 +36,9 @@ class VisitorStatisticsProvider extends ServiceProvider
     public function boot()
     {
         // Register config
-        $this->mergeConfigFrom(
-            __DIR__ . '/../../config/visitorstatistics.php',
-            'visitorstatistics'
-        );
+        $this->publishes([
+            __DIR__ . '/../../config/visitorstatistics.php' => config_path('visitorstatistics.php'),
+        ], 'config');
 
         // Register routes
         $this->mapStatisticsRoutes();
