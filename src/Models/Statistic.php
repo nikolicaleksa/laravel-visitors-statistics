@@ -64,4 +64,14 @@ class Statistic extends Model
     {
         return Statistic::where('type', self::TYPES['all'])->sum('value');
     }
+
+    /**
+     * Get the total number of unique visitors.
+     *
+     * @return int
+     */
+    public static function getTotalUniqueVisitors(): int
+    {
+        return Statistic::where('type', self::TYPES['unique'])->sum('value');
+    }
 }
