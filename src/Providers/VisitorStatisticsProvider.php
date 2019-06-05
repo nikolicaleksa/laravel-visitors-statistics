@@ -39,6 +39,10 @@ class VisitorStatisticsProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../config/visitorstatistics.php' => config_path('visitorstatistics.php'),
         ], 'config');
+        $this->mergeConfigFrom(
+            __DIR__ . '/../../config/visitorstatistics.php',
+            'visitorstatistics'
+        );
 
         // Register routes
         $this->mapStatisticsRoutes();
