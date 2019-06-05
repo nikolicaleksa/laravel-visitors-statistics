@@ -5,20 +5,20 @@ Route::get('/statistics/{year}/{month?}', 'StatisticsController@getStatistics')
         'year' => '\d{4}',
         'month' => '\d{1,2}'
     ])
-    ->name('getStatistics');
+    ->name('visitorstatistics.all_statistics');
 
 Route::get('/statistics/unique/{year}/{month?}', 'StatisticsController@getUniqueStatistics')
     ->where([
         'year' => '\d{4}',
         'month' => '\d{1,2}'
     ])
-    ->name('getUniqueStatistics');
+    ->name('visitorstatistics.unique_statistics');
 
 Route::get('/statistics/countries', 'StatisticsController@getCountriesStatistics')
-    ->name('getCountriesStatistics');
+    ->name('visitorstatistics.countries');
 
 Route::get('/statistics/available/{year?}', 'StatisticsController@getAvailableDates')
     ->where([
         'year' => '\d{4}'
     ])
-    ->name('getAvailableDates');
+    ->name('visitorstatistics.available_dates');
