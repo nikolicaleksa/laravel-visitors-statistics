@@ -143,7 +143,7 @@ class StatisticsController extends Controller
             ->get();
 
         if (is_null($month)) {
-            for ($i = 1; $i < 12; $i++) {
+            for ($i = 1; $i <= 12; $i++) {
                 $data[$i] = 0;
             }
 
@@ -151,7 +151,7 @@ class StatisticsController extends Controller
                 $data[Carbon::createFromTimeString($statistic->created_at)->month] += $statistic->value;
             }
         } else {
-            for ($i = 1; $i < Carbon::createFromDate($year, $month, 1)->endOfMonth()->day; $i++) {
+            for ($i = 1; $i <= Carbon::createFromDate($year, $month, 1)->endOfMonth()->day; $i++) {
                 $data[$i] = 0;
             }
 
