@@ -65,14 +65,15 @@ For more sophisticated tracking you should use something like [Google Analytics]
 
 The package comes with a controller and a bunch of routes to fetch statistics. The idea is to fetch statistics on your dashboard with AJAX request and parse data to some JavaScript graph library like [Highcharts](https://www.highcharts.com/).
 
-| Route name | Description |
-| --- | --- |
-| visitorstatistics.all_statistics | Get statistics for the given year or month. |
-| visitorstatistics.unique_statistics | Get unique statistics for the given year or month. |
-| visitorstatistics.countries | Get visits count for each country. |
-| visitorstatistics.available_dates | Get years or months that have statistics tracked. |
+| Route name | Route URI | Description |
+| --- | --- | --- |
+| visitorstatistics.all_statistics | /statistics/{year}/{month?} | Get statistics for the given year or month. |
+| visitorstatistics.unique_statistics | /statistics/unique/{year}/{month?} | Get unique statistics for the given year or month. |
+| visitorstatistics.total_statistics | /statistics/total/{year}/{month?} | Get both all and unique statistics for a given year or month. |
+| visitorstatistics.countries | /statistics/countries | Get visits count for each country. |
+| visitorstatistics.available_dates | /statistics/available/{year?} | Get years or months that have statistics tracked. |
 
-**NOTE:** All routes return response in `JSON` format.
+**NOTE:** All routes are prefixed with value set in configuration and return response in `JSON` format.
 
 ## Example responses
 
@@ -111,6 +112,39 @@ The package comes with a controller and a bunch of routes to fetch statistics. T
         "27": 0,
         "28": 0,
         "29": 0
+    }
+}
+```
+
+`/admin/statistics/total/2019`
+
+```json
+{
+    "all": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 271,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "10": 0,
+        "11": 0
+    },
+    "unique": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 42,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "10": 0,
+        "11": 0
     }
 }
 ```
