@@ -14,6 +14,13 @@ Route::get('/statistics/unique/{year}/{month?}', 'StatisticsController@getUnique
     ])
     ->name('visitorstatistics.unique_statistics');
 
+Route::get('/statistics/total/{year}/{month?}', 'StatisticsController@getTotalStatistics')
+    ->where([
+        'year' => '\d{4}',
+        'month' => '\d{1,2}'
+    ])
+    ->name('visitorstatistics.total_statistics');
+
 Route::get('/statistics/countries', 'StatisticsController@getCountriesStatistics')
     ->name('visitorstatistics.countries');
 

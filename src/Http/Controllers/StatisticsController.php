@@ -11,14 +11,6 @@ use Illuminate\Http\JsonResponse;
 class StatisticsController extends Controller
 {
     /**
-     * StatisticsController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Get statistics for the given year or month.
      *
      * @param int $year
@@ -29,7 +21,7 @@ class StatisticsController extends Controller
     public function getStatistics(int $year, ?int $month = null): JsonResponse
     {
         return response()->json([
-            'data' => $this->retrieveStatistics(Statistic::TYPES['all'], $year, $month)
+            'data' => $this->retrieveStatistics(Statistic::TYPES['all'], $year, $month),
         ]);
     }
 
@@ -44,7 +36,23 @@ class StatisticsController extends Controller
     public function getUniqueStatistics(int $year, ?int $month = null): JsonResponse
     {
         return response()->json([
-            'data' => $this->retrieveStatistics(Statistic::TYPES['unique'], $year, $month)
+            'data' => $this->retrieveStatistics(Statistic::TYPES['unique'], $year, $month),
+        ]);
+    }
+
+    /**
+     * Get both all and unique statistics for a given year or month.
+     *
+     * @param int $year
+     * @param int|null $month
+     *
+     * @return JsonResponse
+     */
+    public function getTotalStatistics(int $year, ?int $month = null): JsonResponse
+    {
+        return response()->json([
+            'all' => $this->retrieveStatistics(Statistic::TYPES['all'], $year, $month),
+            'unique' => $this->retrieveStatistics(Statistic::TYPES['unique'], $year, $month),
         ]);
     }
 
