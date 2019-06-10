@@ -57,14 +57,21 @@ class StatisticsController extends Controller
     }
 
     /**
-     * Get visits count for each country.
+     * Get visits count and percentage for each country.
      *
      * @return JsonResponse
      */
     public function getCountriesStatistics(): JsonResponse
     {
+        $visitors = Visitor::getVisitorCountPerCountry();
+        $visitorCount = Visitor::count();
+
+        foreach ($visitors as $visitor) {
+            $visitor->percentage = round($visitor->count * 100 / $visitorCount, 2);
+        }
+
         return response()->json([
-            'data' => Visitor::getVisitorCountPerCountry(),
+            'data' => $visitors,
         ]);
     }
 

@@ -58,8 +58,9 @@ class Visitor extends Model
      */
     public static function getVisitorCountPerCountry(): Collection
     {
-        return Visitor::select(['country', DB::raw('COUNT(*) as visitor_count')])
+        return Visitor::select(['country', DB::raw('COUNT(*) as count')])
             ->groupBy('country')
+            ->orderBy('count', 'DESC')
             ->get();
     }
 

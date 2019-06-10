@@ -70,7 +70,7 @@ The package comes with a controller and a bunch of routes to fetch statistics. T
 | visitorstatistics.all_statistics | /statistics/{year}/{month?} | Get statistics for the given year or month. |
 | visitorstatistics.unique_statistics | /statistics/unique/{year}/{month?} | Get unique statistics for the given year or month. |
 | visitorstatistics.total_statistics | /statistics/total/{year}/{month?} | Get both all and unique statistics for a given year or month. |
-| visitorstatistics.countries | /statistics/countries | Get visits count for each country. |
+| visitorstatistics.countries | /statistics/countries | Get visits count and percentage for each country. |
 | visitorstatistics.available_dates | /statistics/available/{year?} | Get years or months that have statistics tracked. |
 
 **NOTE:** All routes are prefixed with value set in configuration and return response in `JSON` format.
@@ -154,20 +154,34 @@ The package comes with a controller and a bunch of routes to fetch statistics. T
 {
     "data": [
         {
-            "country": "Unknown",
-            "visitor_count": 13
+            "country": "Germany",
+            "count": 6,
+            "percentage": 40
         },
         {
-            "country": "Serbia",
-            "visitor_count": 2454
+            "country": "United States",
+            "count": 4,
+            "percentage": 26.67
+        },
+        {
+            "country": "Unknown",
+            "count": 2,
+            "percentage": 13.33
+        },
+        {
+            "country": "Thailand",
+            "count": 1,
+            "percentage": 6.67
         },
         {
             "country": "Russia",
-            "visitor_count": 1874
+            "count": 1,
+            "percentage": 6.67
         },
         {
-            "country": "Germany",
-            "visitor_count": 2002
+            "country": "Serbia",
+            "count": 1,
+            "percentage": 6.67
         }
     ]
 }
